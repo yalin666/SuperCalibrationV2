@@ -9,17 +9,19 @@
 * 调用 MATLAB 做双目标定优化
 * 提取内参、畸变、外参
 * 生成校正后的左右图像
-* 生成 `camera\_params.yaml` 供双目视觉 / SLAM 使用
+* 生成 `camera_params.yaml` 供双目视觉 / SLAM 使用
 
 \---
 
 ## 2\. 环境配置
 
+#需在Ubuntu系统下执行，并且需要预装MATLAB！！！
+
 ### 2.1 新建 conda 环境
 
 ```bash
-conda create -n stereo\_calib python=3.10 -y
-conda activate stereo\_calib
+conda create -n stereo_calib python=3.10 -y
+conda activate stereo_calib
 ```
 
 ### 2.2 安装 Python 依赖
@@ -82,15 +84,15 @@ chmod +x SuperCalibrationV2.sh.sh
 ### 4.3 常用运行方式
 
 ```bash
-./SuperCalibrationV2.sh.sh \\\\
-  -l ./left \\\\
-  -r ./right \\\\
-  -s 30.0 \\\\
-  -o ./results\\\_optimized \\\\
-  -f 300 \\\\
-  --filter-pattern "(11,8)" \\\\
-  -m 40 \\\\
-  -t 1.5 \\\\
+./SuperCalibrationV2.sh.sh \\
+  -l ./left \\
+  -r ./right \\
+  -s 30.0 \\
+  -o ./results\\\_optimized \\
+  -f 300 \\
+  --filter-pattern "(11,8)" \\
+  -m 40 \\
+  -t 1.5 \\
   --strategy hybrid
 ```
 
@@ -106,7 +108,7 @@ chmod +x SuperCalibrationV2.sh.sh
 ### 常用可选参数
 
 * `-s, --square`：棋盘格方格尺寸，单位 mm，默认 `30.0`
-* `-o, --output`：输出目录，默认 `./results\_optimized`
+* `-o, --output`：输出目录，默认 `./results_optimized`
 * `-f, --filter-target`：筛选目标图像数量，默认 `300`
 * `--filter-pattern`：棋盘格内角点数量，默认 `(11,8)`
 * `-m, --min-images`：最少保留图像数，默认 `40`
@@ -132,15 +134,15 @@ chmod +x SuperCalibrationV2.sh.sh
 输出目录中通常会生成：
 
 ```text
-results\_optimized/
-├── filtered\_left/              # 筛选后的左目图像
-├── filtered\_right/             # 筛选后的右目图像
-├── rectified\_left/             # 校正后的左目图像
-├── rectified\_right/            # 校正后的右目图像
-├── stereoParams\_optimized.mat  # MATLAB 标定结果
-├── calib\_params.py             # 提取后的 Python 参数
-├── camera\_params.yaml          # 最终相机配置文件
-├── baseline\_val.txt            # 双目基线值
+results_optimized/
+├── filtered_left/              # 筛选后的左目图像
+├── filtered_right/             # 筛选后的右目图像
+├── rectified_left/             # 校正后的左目图像
+├── rectified_right/            # 校正后的右目图像
+├── stereoParams_optimized.mat  # MATLAB 标定结果
+├── calib_params.py             # 提取后的 Python 参数
+├── camera_params.yaml          # 最终相机配置文件
+├── baseline_val.txt            # 双目基线值
 ├── filtering.log               # 图像筛选日志
 └── calibration.log             # 标定日志
 ```
@@ -167,7 +169,7 @@ results\_optimized/
 * 左右目图像文件名必须一致
 * `--filter-pattern` 必须和实际棋盘格内角点一致
 * 输出目录会被清空，不要设置到重要目录
-* 必须有 `stereo\_calibration\_optimized.m`
+* 必须有 `stereo_calibration_optimized.m`
 * 必须能在终端直接调用 `matlab`
 
 \---
@@ -175,17 +177,17 @@ results\_optimized/
 ## 9\. 一条推荐命令
 
 ```bash
-conda activate stereo\_calib
+conda activate stereo_calib
 
-./SuperCalibrationV2.sh \\\\
-  -l ./dataset/left \\\\
-  -r ./dataset/right \\\\
-  -s 30 \\\\
-  -o ./results\\\_optimized \\\\
-  -f 300 \\\\
-  --filter-pattern "(11,8)" \\\\
-  -m 40 \\\\
-  -e 0.5 \\\\
+./SuperCalibrationV2.sh \\
+  -l ./dataset/left \\
+  -r ./dataset/right \\
+  -s 30 \\
+  -o ./results\\\_optimized \\
+  -f 300 \\
+  --filter-pattern "(11,8)" \\
+  -m 30 \\
+  -e 0.5 \\
   --strategy hybrid
 ```
 
