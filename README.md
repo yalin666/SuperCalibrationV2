@@ -42,26 +42,6 @@ matlab
 export PATH=/usr/local/MATLAB/R2023b/bin:$PATH
 ```
 
-### 2.4 MATLAB 脚本准备
-
-除了这个 `.sh` 脚本，还需要准备：
-
-* `stereo\_calibration\_optimized.m`
-
-放在以下任意位置即可：
-
-```text
-当前脚本同目录
-```
-
-或
-
-```text
-matlab\_scripts/
-```
-
-\---
-
 ## 3\. 数据准备
 
 左右目图像放到两个文件夹，文件名必须一一对应，例如：
@@ -90,27 +70,27 @@ dataset/
 ### 4.1 赋予执行权限
 
 ```bash
-chmod +x run\_pipeline.sh
+chmod +x SuperCalibrationV2.sh.sh
 ```
 
 ### 4.2 最简单运行
 
 ```bash
-./run\_pipeline.sh -l ./left -r ./right
+./SuperCalibrationV2.sh -l ./left -r ./right
 ```
 
 ### 4.3 常用运行方式
 
 ```bash
-./run\_pipeline.sh \\
-  -l ./left \\
-  -r ./right \\
-  -s 30.0 \\
-  -o ./results\_optimized \\
-  -f 300 \\
-  --filter-pattern "(11,8)" \\
-  -m 40 \\
-  -t 1.5 \\
+./SuperCalibrationV2.sh.sh \\\\
+  -l ./left \\\\
+  -r ./right \\\\
+  -s 30.0 \\\\
+  -o ./results\\\_optimized \\\\
+  -f 300 \\\\
+  --filter-pattern "(11,8)" \\\\
+  -m 40 \\\\
+  -t 1.5 \\\\
   --strategy hybrid
 ```
 
@@ -135,11 +115,14 @@ chmod +x run\_pipeline.sh
 * `--filter-strict`：严格模式，只保留检测到棋盘格的图像
 * `--use-percentile`：启用百分位误差筛选
 * `--percentile`：百分位阈值，默认 `75`
+* `-m`： --min-images 最少保留图像数，默认 40
+* `-e`： --target-error 目标平均误差
+* `--filter-diversity`：最小多样性阈值，默认 0.3
 
 查看完整参数：
 
 ```bash
-./run\_pipeline.sh -h
+./SuperCalibrationV2.sh -h
 ```
 
 \---
@@ -194,15 +177,15 @@ results\_optimized/
 ```bash
 conda activate stereo\_calib
 
-./run\_pipeline.sh \\
-  -l ./dataset/left \\
-  -r ./dataset/right \\
-  -s 30 \\
-  -o ./results\_optimized \\
-  -f 300 \\
-  --filter-pattern "(11,8)" \\
-  -m 40 \\
-  -t 1.5 \\
+./SuperCalibrationV2.sh \\\\
+  -l ./dataset/left \\\\
+  -r ./dataset/right \\\\
+  -s 30 \\\\
+  -o ./results\\\_optimized \\\\
+  -f 300 \\\\
+  --filter-pattern "(11,8)" \\\\
+  -m 40 \\\\
+  -e 0.5 \\\\
   --strategy hybrid
 ```
 
